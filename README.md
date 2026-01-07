@@ -5,7 +5,7 @@ A full-stack FERN (Firebase, Express, React, Node.js) application for IoT soil m
 ## 🏗️ Project Structure
 
 ```
-Capstone/
+iot-soil-monitoring-system/
 ├── backend/          # Express.js REST API server
 │   ├── index.js      # Main server file
 │   ├── middleware/   # Custom middleware (authentication, etc.)
@@ -44,7 +44,7 @@ Follow these steps to get the project up and running:
 
 ```bash
 git clone <repository-url>
-cd Capstone
+cd iot-soil-monitoring-system
 ```
 
 ### Step 2: Install Dependencies
@@ -254,7 +254,7 @@ npm install firebase
 
 ```bash
 git clone <repository-url>
-cd Capstone
+cd iot-soil-monitoring-system
 ```
 
 ### 2. Install Backend Dependencies
@@ -520,4 +520,5 @@ ISC
 ## 📞 Support
 
 For issues and questions, please open an issue in the repository.
+
 
