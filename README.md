@@ -5,7 +5,7 @@ A full-stack FERN (Firebase, Express, React, Node.js) application for IoT soil m
 ## 🏗️ Project Structure
 
 ```
-iot-soil-monitoring-system/
+Capstone/
 ├── backend/          # Express.js REST API server
 │   ├── index.js      # Main server file
 │   ├── middleware/   # Custom middleware (authentication, etc.)
@@ -36,44 +36,90 @@ Before you begin, ensure you have the following installed:
 - **Firebase Account** - [Sign up here](https://firebase.google.com/)
 - **Code Editor** (Recommended: VS Code) - [Download here](https://code.visualstudio.com/)
 
+## ⚡ Quick Command Reference
+
+**Copy-paste these commands to get started quickly:**
+
+```bash
+# 1. Clone and enter project
+git clone <repository-url>
+cd Capstone
+
+# 2. Install backend dependencies
+cd backend && npm install && cd ..
+
+# 3. Install frontend dependencies
+cd frontend && npm install && cd ..
+
+# 4. Start backend (Terminal 1)
+cd backend && npm start
+
+# 5. Start frontend (Terminal 2 - new terminal)
+cd frontend && npm start
+```
+
+**That's it!** The app will be running at:
+- Backend: http://localhost:3000
+- Frontend: http://localhost:4000
+
+---
+
 ## 🚀 Quick Setup Guide
 
-Follow these steps to get the project up and running:
+Follow these detailed steps to get the project up and running:
 
 ### Step 1: Clone the Repository
 
 ```bash
 git clone <repository-url>
-cd iot-soil-monitoring-system
+cd Capstone
 ```
 
 ### Step 2: Install Dependencies
 
 #### Backend Dependencies
 
+Open a terminal and run:
+
 ```bash
 cd backend
 npm install
 ```
 
-This will install:
-- Express.js
-- Firebase Admin SDK
-- CORS middleware
-- dotenv for environment variables
+**What this installs:**
+- `express` - Web framework for Node.js
+- `firebase-admin` - Firebase Admin SDK for server-side operations
+- `cors` - CORS middleware
+- `dotenv` - Environment variable loader
+- `firebase` - Firebase Client SDK (for compatibility)
+
+**Expected output:**
+```
+added 267 packages, and audited 267 packages in Xs
+```
 
 #### Frontend Dependencies
+
+In the same terminal or a new one, run:
 
 ```bash
 cd ../frontend
 npm install
 ```
 
-This will install:
-- React 19
-- Firebase Client SDK
-- Testing libraries
-- React Scripts
+**What this installs:**
+- `react` & `react-dom` - React framework
+- `firebase` - Firebase Client SDK
+- `react-scripts` - Create React App tooling
+- Testing libraries (`@testing-library/*`)
+- `web-vitals` - Performance metrics
+
+**Expected output:**
+```
+added 1384 packages, and audited 1384 packages in Xs
+```
+
+**Note**: Installation may take a few minutes depending on your internet connection.
 
 ### Step 3: Configure Environment Variables
 
@@ -137,44 +183,80 @@ const firebaseConfig = {
 
 #### 4.4 Setup Firebase Admin SDK (Backend)
 
-1. In Firebase Console, go to Project Settings
-2. Click on "Service accounts" tab
-3. Click "Generate new private key"
-4. Download the JSON file
-5. Rename it to: `iotsoilmonitoringsystem-e1dcf-firebase-adminsdk-fbsvc-77f9294f0f.json`
-6. Place it in the `backend/` directory
+1. In Firebase Console, go to **Project Settings** (gear icon)
+2. Click on the **"Service accounts"** tab
+3. Click **"Generate new private key"**
+4. A dialog will appear - click **"Generate key"**
+5. A JSON file will be downloaded automatically
+6. **Rename the downloaded file** to match your project:
+   ```
+   iotsoilmonitoringsystem-e1dcf-firebase-adminsdk-fbsvc-77f9294f0f.json
+   ```
+   (Or use your own naming convention, but update `backend/index.js` accordingly)
+7. **Move the file** to the `backend/` directory:
+   ```bash
+   # If you're in the project root
+   mv ~/Downloads/your-project-firebase-adminsdk-xxxxx.json backend/
+   
+   # Or manually copy the file to: Capstone/backend/
+   ```
 
-**⚠️ Security Warning**: Never commit this service account key file to version control. It's already in `.gitignore`.
+**⚠️ Security Warning**: 
+- Never commit this service account key file to version control
+- It's already in `.gitignore` to prevent accidental commits
+- Keep this file secure and never share it publicly
 
 ### Step 5: Verify Setup
 
 #### Test Backend
+
+In a terminal, navigate to the backend directory and start the server:
 
 ```bash
 cd backend
 npm start
 ```
 
-You should see:
+**Expected output:**
 ```
 Server is running on port 3000
 ```
 
-Test it by opening `http://localhost:3000` in your browser. You should see:
+**Verify it's working:**
+1. Open your browser and go to: `http://localhost:3000`
+2. You should see:
 ```json
 {"message":"Hello World","success":true}
 ```
 
+**Alternative (with auto-restart):**
+```bash
+npm run dev
+```
+This requires `nodemon` to be installed globally: `npm install -g nodemon`
+
 #### Test Frontend
 
-Open a new terminal:
+Open a **new terminal window** (keep the backend running):
 
 ```bash
 cd frontend
 npm start
 ```
 
+**Expected output:**
+```
+Compiled successfully!
+
+You can now view frontend in the browser.
+
+  Local:            http://localhost:4000
+  On Your Network:  http://192.168.x.x:4000
+```
+
 The React app should automatically open in your browser at `http://localhost:4000`.
+
+**Note**: If the browser doesn't open automatically, manually navigate to `http://localhost:4000`
 
 ### Step 6: Verify Firebase Connection
 
@@ -250,26 +332,76 @@ npm install firebase
 
 ## 🔧 Installation (Detailed Reference)
 
-### 1. Clone the repository
+This section provides a complete command-by-command installation guide.
+
+### 1. Clone the Repository
 
 ```bash
+# Clone the repository
 git clone <repository-url>
-cd iot-soil-monitoring-system
+
+# Navigate to the project directory
+cd Capstone
+
+# Verify you're in the correct directory
+ls
+# You should see: backend/  frontend/  README.md  .gitignore
 ```
 
 ### 2. Install Backend Dependencies
 
 ```bash
+# Navigate to backend directory
 cd backend
+
+# Install all backend dependencies
 npm install
+
+# Verify installation (optional)
+npm list --depth=0
+# You should see: cors, dotenv, express, firebase, firebase-admin
+
+# Return to project root
+cd ..
 ```
+
+**What gets installed:**
+- All packages listed in `backend/package.json`
+- Creates `node_modules/` folder with dependencies
+- Creates `package-lock.json` with exact versions
 
 ### 3. Install Frontend Dependencies
 
 ```bash
-cd ../frontend
+# Navigate to frontend directory
+cd frontend
+
+# Install all frontend dependencies
 npm install
+
+# Verify installation (optional)
+npm list --depth=0
+# You should see: react, react-dom, firebase, react-scripts, etc.
+
+# Return to project root
+cd ..
 ```
+
+**What gets installed:**
+- All packages listed in `frontend/package.json`
+- Creates `node_modules/` folder with dependencies
+- Creates `package-lock.json` with exact versions
+
+### 4. Quick Installation (All at Once)
+
+If you want to install both backend and frontend dependencies in sequence:
+
+```bash
+# From project root
+cd backend && npm install && cd ../frontend && npm install && cd ..
+```
+
+Or use separate terminals for parallel installation.
 
 ### 4. Environment Setup
 
@@ -520,5 +652,4 @@ ISC
 ## 📞 Support
 
 For issues and questions, please open an issue in the repository.
-
 
