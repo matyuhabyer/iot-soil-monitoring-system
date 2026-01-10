@@ -1,85 +1,143 @@
-# Capstone Project - IoT Soil Monitoring System
+# IoT Soil Monitoring System - Capstone Project
 
-A full-stack FERN (Firebase, Express, React, Node.js) application for IoT soil monitoring.
+A full-stack web application for monitoring soil conditions in real-time, built with React, Express.js, and Firebase. This system provides role-based access control for operators, managers, and administrators to monitor and manage soil sensor data.
 
-## 🏗️ Project Structure
+## 📋 Table of Contents
 
-```
-Capstone/
-├── backend/          # Express.js REST API server
-│   ├── index.js      # Main server file
-│   ├── middleware/   # Custom middleware (authentication, etc.)
-│   └── package.json  # Backend dependencies
-│
-└── frontend/         # React.js frontend application
-    ├── src/          # React source files
-    ├── public/       # Static assets
-    └── package.json  # Frontend dependencies
-```
+- [Overview](#overview)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Project Structure](#project-structure)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [Running the Application](#running-the-application)
+- [Available Scripts](#available-scripts)
+- [Dependencies](#dependencies)
+- [Features](#features)
+- [Troubleshooting](#troubleshooting)
+
+## 🎯 Overview
+
+The IoT Soil Monitoring System is designed for **Luntiang Republika Ecofarm** to monitor Thai Basil soil conditions. The system provides:
+
+- Real-time soil monitoring dashboard
+- Role-based access control (Operator, Manager, Admin)
+- System alerts and notifications
+- Historical data analysis
+- Advisory and recommendations
+- System administration panel
 
 ## 🚀 Tech Stack
 
-- **Frontend**: React 19, Firebase Client SDK
-- **Backend**: Express.js, Node.js, Firebase Admin SDK, dotenv
-- **Database**: Firebase Firestore, Realtime Database
-- **Authentication**: Firebase Authentication
-- **Storage**: Firebase Cloud Storage
-- **Environment Management**: dotenv (backend), React environment variables (frontend)
+### Frontend
+- **React 19.2.3** - UI library
+- **React Router DOM 7.12.0** - Client-side routing
+- **Tailwind CSS 3.4.19** - Utility-first CSS framework
+- **Lucide React 0.562.0** - Icon library
+- **Firebase 12.7.0** - Authentication, Firestore, Storage, Realtime Database
 
-## 📋 Prerequisites
+### Backend
+- **Node.js** - Runtime environment
+- **Express.js 5.2.1** - Web framework
+- **Firebase Admin SDK 13.6.0** - Server-side Firebase operations
+- **CORS 2.8.5** - Cross-Origin Resource Sharing
+- **dotenv 16.4.5** - Environment variable management
 
-Before you begin, ensure you have the following installed:
+### Development Tools
+- **React Scripts 5.0.1** - Build tooling
+- **PostCSS 8.5.6** - CSS processing
+- **Autoprefixer 10.4.23** - CSS vendor prefixing
+- **Testing Library** - Component testing utilities
 
-- **Node.js** (v14 or higher) - [Download here](https://nodejs.org/)
-- **npm** (v6 or higher) - Comes with Node.js
-- **Git** - [Download here](https://git-scm.com/)
-- **Firebase Account** - [Sign up here](https://firebase.google.com/)
-- **Code Editor** (Recommended: VS Code) - [Download here](https://code.visualstudio.com/)
+## 📦 Prerequisites
 
-## ⚡ Quick Command Reference
+Before you begin, ensure you have the following installed on your system:
 
-**Copy-paste these commands to get started quickly:**
+### Required Software
 
-```bash
-# 1. Clone and enter project
-git clone <repository-url>
-cd Capstone
+1. **Node.js** (v14.0.0 or higher)
+   - Download: [https://nodejs.org/](https://nodejs.org/)
+   - Verify installation: `node --version`
+   - Recommended: v18.x LTS or higher
 
-# 2. Install backend dependencies
-cd backend && npm install && cd ..
+2. **npm** (v6.0.0 or higher)
+   - Comes bundled with Node.js
+   - Verify installation: `npm --version`
 
-# 3. Install frontend dependencies
-cd frontend && npm install && cd ..
+3. **Git** (for version control)
+   - Download: [https://git-scm.com/](https://git-scm.com/)
+   - Verify installation: `git --version`
 
-# 4. Start backend (Terminal 1)
-cd backend && npm start
+4. **Firebase Account**
+   - Sign up: [https://firebase.google.com/](https://firebase.google.com/)
+   - Required for authentication and database services
 
-# 5. Start frontend (Terminal 2 - new terminal)
-cd frontend && npm start
+5. **Code Editor** (Recommended: VS Code)
+   - Download: [https://code.visualstudio.com/](https://code.visualstudio.com/)
+
+### System Requirements
+
+- **Operating System**: Windows 10+, macOS 10.15+, or Linux
+- **RAM**: Minimum 4GB (8GB recommended)
+- **Disk Space**: At least 500MB free space
+- **Internet Connection**: Required for npm package installation and Firebase services
+
+## 📁 Project Structure
+
+```
+Capstone/
+├── backend/                          # Express.js REST API Server
+│   ├── index.js                      # Main server file
+│   ├── package.json                  # Backend dependencies
+│   ├── package-lock.json             # Locked dependency versions
+│   ├── .env                          # Environment variables (create this)
+│   ├── middleware/                   # Custom middleware
+│   │   └── auth.js                   # Authentication middleware
+│   └── iotsoilmonitoringsystem-*.json # Firebase Admin SDK key (keep secure!)
+│
+├── frontend/                         # React.js Frontend Application
+│   ├── src/                          # Source code
+│   │   ├── components/              # Reusable React components
+│   │   │   ├── Header.js            # Main header component
+│   │   │   ├── Navigation.js        # Sidebar navigation
+│   │   │   ├── RoleBadge.js         # User role badge
+│   │   │   ├── Button.js            # Button component
+│   │   │   └── DropdownMenu.js      # Dropdown menu component
+│   │   ├── pages/                   # Page components
+│   │   │   ├── Home.js              # Home page
+│   │   │   └── About.js             # About page
+│   │   ├── utils/                   # Utility functions
+│   │   │   ├── roles.js             # Role definitions
+│   │   │   └── permissions.js       # Permission system
+│   │   ├── App.js                   # Main App component
+│   │   ├── index.js                 # React entry point
+│   │   └── index.css                # Global styles with Tailwind
+│   ├── public/                      # Static assets
+│   ├── package.json                 # Frontend dependencies
+│   ├── package-lock.json            # Locked dependency versions
+│   ├── tailwind.config.js           # Tailwind CSS configuration
+│   └── postcss.config.js            # PostCSS configuration
+│
+└── README.md                         # This file
 ```
 
-**That's it!** The app will be running at:
-- Backend: http://localhost:3000
-- Frontend: http://localhost:4000
+## 🔧 Installation
 
----
-
-## 🚀 Quick Setup Guide
-
-Follow these detailed steps to get the project up and running:
+Follow these steps to set up the project on your local machine.
 
 ### Step 1: Clone the Repository
 
 ```bash
+# Clone the repository
 git clone <repository-url>
+
+# Navigate to the project directory
 cd Capstone
 ```
 
-### Step 2: Install Dependencies
+### Step 2: Install Backend Dependencies
 
-#### Backend Dependencies
-
-Open a terminal and run:
+Navigate to the backend directory and install all required packages:
 
 ```bash
 cd backend
@@ -87,10 +145,10 @@ npm install
 ```
 
 **What this installs:**
-- `express` - Web framework for Node.js
+- `express` - Web framework for building REST API
+- `cors` - Enable Cross-Origin Resource Sharing
+- `dotenv` - Load environment variables from .env file
 - `firebase-admin` - Firebase Admin SDK for server-side operations
-- `cors` - CORS middleware
-- `dotenv` - Environment variable loader
 - `firebase` - Firebase Client SDK (for compatibility)
 
 **Expected output:**
@@ -98,76 +156,130 @@ npm install
 added 267 packages, and audited 267 packages in Xs
 ```
 
-#### Frontend Dependencies
+**Installation time:** Approximately 30-60 seconds (depending on internet speed)
 
-In the same terminal or a new one, run:
+### Step 3: Install Frontend Dependencies
+
+Open a new terminal window (keep the backend terminal open) and navigate to the frontend directory:
 
 ```bash
-cd ../frontend
+cd frontend
 npm install
 ```
 
 **What this installs:**
+
+**Production Dependencies:**
 - `react` & `react-dom` - React framework
+- `react-router-dom` - Client-side routing
 - `firebase` - Firebase Client SDK
+- `lucide-react` - Icon library
 - `react-scripts` - Create React App tooling
-- Testing libraries (`@testing-library/*`)
 - `web-vitals` - Performance metrics
+
+**Development Dependencies:**
+- `tailwindcss` - CSS framework
+- `postcss` - CSS processing
+- `autoprefixer` - CSS vendor prefixing
+- `@testing-library/*` - Testing utilities
 
 **Expected output:**
 ```
-added 1384 packages, and audited 1384 packages in Xs
+added 1392 packages, and audited 1392 packages in Xs
 ```
 
-**Note**: Installation may take a few minutes depending on your internet connection.
+**Installation time:** Approximately 2-5 minutes (depending on internet speed)
 
-### Step 3: Configure Environment Variables
+### Step 4: Verify Installation
 
-The project includes `.env` files that are already configured with default values. You can customize them if needed.
+Check that all dependencies were installed correctly:
 
-#### Backend Configuration (`backend/.env`)
+```bash
+# In backend directory
+cd backend
+npm list --depth=0
 
-The file is already created with:
+# In frontend directory
+cd frontend
+npm list --depth=0
+```
+
+You should see all the packages listed without errors.
+
+## ⚙️ Configuration
+
+### Backend Configuration
+
+#### 1. Create Environment File
+
+Create a `.env` file in the `backend/` directory:
+
+```bash
+cd backend
+touch .env  # On Windows: type nul > .env
+```
+
+#### 2. Add Environment Variables
+
+Open `backend/.env` and add the following:
+
 ```env
+# Server Configuration
 PORT=3000
 NODE_ENV=development
+
+# Optional: CORS Configuration
+# CORS_ORIGIN=http://localhost:4000
 ```
 
-#### Frontend Configuration (`frontend/.env`)
+**Note:** The backend will default to port 3000 if `PORT` is not specified.
 
-The file is already created with:
+#### 3. Firebase Admin SDK Setup
+
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Select your project (or create a new one)
+3. Navigate to **Project Settings** (gear icon) → **Service Accounts** tab
+4. Click **"Generate new private key"**
+5. Download the JSON file
+6. Rename it to match your project (e.g., `iotsoilmonitoringsystem-e1dcf-firebase-adminsdk-fbsvc-77f9294f0f.json`)
+7. Move the file to the `backend/` directory
+
+**⚠️ Security Warning:**
+- Never commit this file to version control
+- Keep it secure and never share it publicly
+- It's already in `.gitignore` to prevent accidental commits
+
+### Frontend Configuration
+
+#### 1. Create Environment File
+
+Create a `.env` file in the `frontend/` directory:
+
+```bash
+cd frontend
+touch .env  # On Windows: type nul > .env
+```
+
+#### 2. Add Environment Variables
+
+Open `frontend/.env` and add the following:
+
 ```env
+# Frontend Server Port
 PORT=4000
+
+# Backend API URL
 REACT_APP_API_URL=http://localhost:3000
 ```
 
-**Note**: If you change the backend port, update `REACT_APP_API_URL` in the frontend `.env` file accordingly.
+**Important Notes:**
+- React requires the `REACT_APP_` prefix for environment variables
+- Change `REACT_APP_API_URL` if your backend runs on a different port
+- Restart the dev server after changing `.env` files
 
-### Step 4: Firebase Project Setup
+#### 3. Firebase Configuration
 
-#### 4.1 Create a Firebase Project
-
-1. Go to [Firebase Console](https://console.firebase.google.com/)
-2. Click "Add project" or select an existing project
-3. Follow the setup wizard
-4. Enable the following services:
-   - **Authentication** (Email/Password or your preferred method)
-   - **Firestore Database**
-   - **Realtime Database** (if needed)
-   - **Storage** (if needed)
-
-#### 4.2 Get Firebase Configuration
-
-1. In Firebase Console, go to Project Settings (gear icon)
-2. Scroll down to "Your apps" section
-3. Click on the web app icon (`</>`) to add a web app
-4. Register your app and copy the Firebase configuration object
-
-#### 4.3 Configure Frontend Firebase
-
-1. Open `frontend/src/index.js`
-2. Find the `firebaseConfig` object (around line 25)
-3. Replace the values with your Firebase project credentials:
+Open `frontend/src/index.js` and update the Firebase configuration:
 
 ```javascript
 const firebaseConfig = {
@@ -181,36 +293,19 @@ const firebaseConfig = {
 };
 ```
 
-#### 4.4 Setup Firebase Admin SDK (Backend)
+**To get your Firebase config:**
+1. Go to Firebase Console → Project Settings
+2. Scroll to "Your apps" section
+3. Click the web app icon (`</>`)
+4. Copy the configuration object
 
-1. In Firebase Console, go to **Project Settings** (gear icon)
-2. Click on the **"Service accounts"** tab
-3. Click **"Generate new private key"**
-4. A dialog will appear - click **"Generate key"**
-5. A JSON file will be downloaded automatically
-6. **Rename the downloaded file** to match your project:
-   ```
-   iotsoilmonitoringsystem-e1dcf-firebase-adminsdk-fbsvc-77f9294f0f.json
-   ```
-   (Or use your own naming convention, but update `backend/index.js` accordingly)
-7. **Move the file** to the `backend/` directory:
-   ```bash
-   # If you're in the project root
-   mv ~/Downloads/your-project-firebase-adminsdk-xxxxx.json backend/
-   
-   # Or manually copy the file to: Capstone/backend/
-   ```
+## 🚀 Running the Application
 
-**⚠️ Security Warning**: 
-- Never commit this service account key file to version control
-- It's already in `.gitignore` to prevent accidental commits
-- Keep this file secure and never share it publicly
+You need to run both the backend and frontend servers simultaneously.
 
-### Step 5: Verify Setup
+### Option 1: Using Two Terminal Windows (Recommended)
 
-#### Test Backend
-
-In a terminal, navigate to the backend directory and start the server:
+#### Terminal 1 - Backend Server
 
 ```bash
 cd backend
@@ -223,21 +318,10 @@ Server is running on port 3000
 ```
 
 **Verify it's working:**
-1. Open your browser and go to: `http://localhost:3000`
-2. You should see:
-```json
-{"message":"Hello World","success":true}
-```
+- Open browser: `http://localhost:3000`
+- You should see: `{"message":"Hello World","success":true}`
 
-**Alternative (with auto-restart):**
-```bash
-npm run dev
-```
-This requires `nodemon` to be installed globally: `npm install -g nodemon`
-
-#### Test Frontend
-
-Open a **new terminal window** (keep the backend running):
+#### Terminal 2 - Frontend Server
 
 ```bash
 cd frontend
@@ -254,145 +338,98 @@ You can now view frontend in the browser.
   On Your Network:  http://192.168.x.x:4000
 ```
 
-The React app should automatically open in your browser at `http://localhost:4000`.
+The React app will automatically open in your browser at `http://localhost:4000`.
 
-**Note**: If the browser doesn't open automatically, manually navigate to `http://localhost:4000`
+### Option 2: Using Development Mode (Backend)
 
-### Step 6: Verify Firebase Connection
+For auto-restart on file changes, use:
 
-1. The frontend should load without errors
-2. Check the browser console for any Firebase initialization errors
-3. Try making an authenticated request to verify Firebase Admin SDK is working
+```bash
+cd backend
+npm run dev
+```
 
-## 🐛 Troubleshooting
+**Note:** This requires `nodemon` to be installed globally:
+```bash
+npm install -g nodemon
+```
 
-### Common Issues
+## 📜 Available Scripts
 
-#### Backend Issues
+### Backend Scripts
 
-**Error: Cannot find module 'dotenv'**
+Run these commands from the `backend/` directory:
+
+| Command | Description |
+|---------|-------------|
+| `npm start` | Start the production server |
+| `npm run dev` | Start server with auto-restart (requires nodemon) |
+| `npm test` | Run tests (not configured yet) |
+
+### Frontend Scripts
+
+Run these commands from the `frontend/` directory:
+
+| Command | Description |
+|---------|-------------|
+| `npm start` | Start development server (opens http://localhost:4000) |
+| `npm run build` | Create production build in `build/` folder |
+| `npm test` | Run test suite |
+| `npm run eject` | Eject from Create React App (⚠️ irreversible) |
+
+## 📦 Dependencies
+
+### Backend Dependencies
+
+All dependencies are listed in `backend/package.json`:
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| **express** | ^5.2.1 | Web framework for Node.js REST API |
+| **cors** | ^2.8.5 | Enable Cross-Origin Resource Sharing for API requests |
+| **dotenv** | ^16.4.5 | Load environment variables from `.env` file |
+| **firebase-admin** | ^13.6.0 | Firebase Admin SDK for server-side operations and token verification |
+| **firebase** | ^12.7.0 | Firebase Client SDK (for compatibility) |
+
+**Installation command:**
 ```bash
 cd backend
 npm install
 ```
 
-**Error: Cannot find module 'firebase-admin'**
-```bash
-cd backend
-npm install firebase-admin
-```
+### Frontend Dependencies
 
-**Port already in use**
-- Change the `PORT` in `backend/.env` to a different port (e.g., 3001)
-- Update `REACT_APP_API_URL` in `frontend/.env` to match
+#### Production Dependencies
 
-**Firebase Admin SDK Error**
-- Ensure the service account JSON file is in the `backend/` directory
-- Check that the file name matches exactly: `iotsoilmonitoringsystem-e1dcf-firebase-adminsdk-fbsvc-77f9294f0f.json`
-- Verify the JSON file is valid and not corrupted
+| Package | Version | Purpose |
+|---------|---------|---------|
+| **react** | ^19.2.3 | React library for building user interfaces |
+| **react-dom** | ^19.2.3 | React DOM renderer |
+| **react-router-dom** | ^7.12.0 | Client-side routing for React applications |
+| **firebase** | ^12.7.0 | Firebase Client SDK for authentication, Firestore, Storage, etc. |
+| **lucide-react** | ^0.562.0 | Icon library with React components |
+| **react-scripts** | ^5.0.1 | Create React App scripts and configuration |
+| **web-vitals** | ^2.1.4 | Measure and report web performance metrics |
 
-#### Frontend Issues
+#### Development Dependencies
 
-**Error: Cannot find module 'firebase/app'**
+| Package | Version | Purpose |
+|---------|---------|---------|
+| **tailwindcss** | ^3.4.19 | Utility-first CSS framework |
+| **postcss** | ^8.5.6 | CSS processing tool |
+| **autoprefixer** | ^10.4.23 | Automatically adds vendor prefixes to CSS |
+| **@testing-library/react** | ^16.3.1 | React testing utilities |
+| **@testing-library/jest-dom** | ^6.9.1 | Custom Jest matchers for DOM testing |
+| **@testing-library/user-event** | ^13.5.0 | Simulate user interactions in tests |
+| **@testing-library/dom** | ^10.4.1 | DOM testing utilities |
+
+**Installation command:**
 ```bash
 cd frontend
-npm install firebase
-```
-
-**Port 3000 already in use**
-- The frontend is configured to use port 4000 by default
-- If port 4000 is also in use, change `PORT` in `frontend/.env`
-
-**CORS Errors**
-- Ensure the backend is running on port 3000
-- Check that `REACT_APP_API_URL` in `frontend/.env` matches your backend URL
-- Verify CORS is enabled in `backend/index.js`
-
-**Firebase Configuration Errors**
-- Double-check your Firebase config values in `frontend/src/index.js`
-- Ensure all required Firebase services are enabled in Firebase Console
-- Check browser console for specific error messages
-
-#### General Issues
-
-**npm install fails**
-- Clear npm cache: `npm cache clean --force`
-- Delete `node_modules` and `package-lock.json`, then run `npm install` again
-- Ensure you're using Node.js v14 or higher
-
-**Environment variables not working**
-- Restart the server after changing `.env` files
-- For frontend, ensure variables start with `REACT_APP_` prefix
-- Check that `.env` files are in the correct directories
-
-**Both servers won't start**
-- Ensure you have two separate terminal windows
-- Check that ports 3000 and 4000 are not already in use
-- Verify Node.js and npm are properly installed: `node --version` and `npm --version`
-
-## 🔧 Installation (Detailed Reference)
-
-This section provides a complete command-by-command installation guide.
-
-### 1. Clone the Repository
-
-```bash
-# Clone the repository
-git clone <repository-url>
-
-# Navigate to the project directory
-cd Capstone
-
-# Verify you're in the correct directory
-ls
-# You should see: backend/  frontend/  README.md  .gitignore
-```
-
-### 2. Install Backend Dependencies
-
-```bash
-# Navigate to backend directory
-cd backend
-
-# Install all backend dependencies
 npm install
-
-# Verify installation (optional)
-npm list --depth=0
-# You should see: cors, dotenv, express, firebase, firebase-admin
-
-# Return to project root
-cd ..
 ```
 
-**What gets installed:**
-- All packages listed in `backend/package.json`
-- Creates `node_modules/` folder with dependencies
-- Creates `package-lock.json` with exact versions
-
-### 3. Install Frontend Dependencies
-
-```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install all frontend dependencies
-npm install
-
-# Verify installation (optional)
-npm list --depth=0
-# You should see: react, react-dom, firebase, react-scripts, etc.
-
-# Return to project root
-cd ..
-```
-
-**What gets installed:**
-- All packages listed in `frontend/package.json`
-- Creates `node_modules/` folder with dependencies
-- Creates `package-lock.json` with exact versions
-
-### 4. Quick Installation (All at Once)
+### Quick Installation (All at Once)
 
 If you want to install both backend and frontend dependencies in sequence:
 
@@ -401,255 +438,168 @@ If you want to install both backend and frontend dependencies in sequence:
 cd backend && npm install && cd ../frontend && npm install && cd ..
 ```
 
-Or use separate terminals for parallel installation.
+## ✨ Features
 
-### 4. Environment Setup
+### Authentication & Authorization
 
-The project includes `.env` files for both backend and frontend. These files are already configured with default values.
+- **Firebase Authentication** - Secure user authentication
+- **Role-Based Access Control** - Three user roles:
+  - **Operator**: Basic monitoring and alerts
+  - **Manager**: Operator permissions + historical data
+  - **Admin**: Full system access including administration
+- **Protected Routes** - Backend middleware for route protection
+- **Token Verification** - Automatic token validation on API requests
 
-#### Backend Environment Variables
+### User Interface
 
-The `backend/.env` file is already created with default configuration:
-- `PORT=3000` - Server port (configurable)
-- `NODE_ENV=development` - Environment mode
+- **Responsive Design** - Works on desktop, tablet, and mobile
+- **Modern UI** - Built with Tailwind CSS
+- **Icon System** - Lucide React icons throughout
+- **Navigation** - Sidebar navigation with role-based menu items
+- **Header** - User info, role badge, and logout functionality
 
-The backend uses the `dotenv` package to load these environment variables automatically.
+### Components
 
-#### Frontend Environment Variables
+- **Header** - Main application header with user account dropdown
+- **Navigation** - Sidebar navigation with permission-based menu items
+- **RoleBadge** - Visual role indicators (Operator, Manager, Admin)
+- **DropdownMenu** - Reusable dropdown menu component
+- **Button** - Reusable button component with variants
 
-The `frontend/.env` file is already created with default configuration:
-- `REACT_APP_API_URL=http://localhost:3000` - Backend API URL
+### Pages
 
-**Note**: React requires the `REACT_APP_` prefix for environment variables to be accessible in the application.
+- **Home** - Landing page
+- **About** - About page
+- Additional pages can be added in `frontend/src/pages/`
 
-#### Customizing Environment Variables
+## 🐛 Troubleshooting
 
-You can edit the `.env` files to customize:
-- **Backend**: Change `PORT` if you want to run the server on a different port
-- **Frontend**: Change `REACT_APP_API_URL` if your backend runs on a different URL
+### Common Issues and Solutions
 
-### 5. Firebase Setup
+#### Backend Issues
 
-1. Place your Firebase service account key in the `backend/` directory:
-   - File: `iotsoilmonitoringsystem-e1dcf-firebase-adminsdk-fbsvc-77f9294f0f.json`
-   - ⚠️ **Important**: Never commit this file to version control
-
-2. Update Firebase configuration in `frontend/src/index.js` with your Firebase project credentials.
-
-## 📦 Dependencies
-
-### Backend Dependencies
-
-The backend uses the following npm packages:
-
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `cors` | ^2.8.5 | Enable Cross-Origin Resource Sharing (CORS) for API requests |
-| `dotenv` | ^16.4.5 | Load environment variables from `.env` file |
-| `express` | ^5.2.1 | Web framework for Node.js REST API |
-| `firebase` | ^12.7.0 | Firebase Client SDK (for compatibility) |
-| `firebase-admin` | ^13.6.0 | Firebase Admin SDK for server-side operations and token verification |
-
-**Installation**: Run `npm install` in the `backend/` directory.
-
-### Frontend Dependencies
-
-The frontend uses the following npm packages:
-
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `@testing-library/dom` | ^10.4.1 | DOM testing utilities for React components |
-| `@testing-library/jest-dom` | ^6.9.1 | Custom Jest matchers for DOM testing |
-| `@testing-library/react` | ^16.3.1 | React testing utilities |
-| `@testing-library/user-event` | ^13.5.0 | Simulate user interactions in tests |
-| `firebase` | ^12.7.0 | Firebase Client SDK for authentication, Firestore, Storage, etc. |
-| `react` | ^19.2.3 | React library for building user interfaces |
-| `react-dom` | ^19.2.3 | React DOM renderer |
-| `react-scripts` | ^5.0.1 | Create React App scripts and configuration |
-| `web-vitals` | ^2.1.4 | Measure and report web performance metrics |
-
-**Installation**: Run `npm install` in the `frontend/` directory.
-
-### Development Dependencies
-
-**Backend**:
-- `nodemon` (optional) - Auto-restart server during development. Install globally: `npm install -g nodemon` or use `npm run dev` script.
-
-**Frontend**:
-- Testing libraries are included in dependencies (see above).
-- ESLint configuration is included in `package.json`.
-
-## 🏃 Running the Application
-
-### Development Mode
-
-You need to run both the backend and frontend servers in separate terminals.
-
-#### Terminal 1 - Backend Server
-
+**Problem: `Cannot find module 'express'`**
 ```bash
 cd backend
-npm start
+npm install
 ```
 
-Or with auto-restart (requires nodemon):
+**Problem: `Port 3000 already in use`**
+- Change `PORT` in `backend/.env` to a different port (e.g., 3001)
+- Update `REACT_APP_API_URL` in `frontend/.env` to match
 
+**Problem: `Firebase Admin SDK Error`**
+- Ensure the service account JSON file is in `backend/` directory
+- Check that the file name matches exactly
+- Verify the JSON file is valid and not corrupted
+
+**Problem: `Cannot find module 'dotenv'`**
 ```bash
-npm run dev
+cd backend
+npm install dotenv
 ```
 
-The backend will run on the port specified in `backend/.env` (default: `http://localhost:3000`)
+#### Frontend Issues
 
-#### Terminal 2 - Frontend Server
-
-```bash
-cd frontend
-npm start
-```
-
-The frontend will automatically open in your browser at `http://localhost:4000` (configured in `frontend/.env`).
-
-### Production Build
-
-#### Build Frontend
-
+**Problem: `Cannot find module 'react'`**
 ```bash
 cd frontend
-npm run build
+npm install
 ```
 
-This creates an optimized production build in the `frontend/build/` directory.
+**Problem: `Port 4000 already in use`**
+- Change `PORT` in `frontend/.env` to a different port (e.g., 4001)
 
-## 📡 API Endpoints
+**Problem: `Tailwind CSS not working`**
+- Verify `tailwind.config.js` exists
+- Check `postcss.config.js` is configured correctly
+- Ensure `@tailwind` directives are in `src/index.css`
+- Restart the dev server
 
-### Public Endpoints
+**Problem: `CORS Errors`**
+- Ensure backend is running on port 3000
+- Check `REACT_APP_API_URL` in `frontend/.env` matches backend URL
+- Verify CORS is enabled in `backend/index.js`
 
-- `GET /` - Health check endpoint
-- `POST /` - Test endpoint
+**Problem: `Firebase Configuration Errors`**
+- Double-check Firebase config values in `frontend/src/index.js`
+- Ensure all required Firebase services are enabled in Firebase Console
+- Check browser console for specific error messages
 
-### Protected Endpoints
+#### General Issues
 
-Protected routes require authentication. Add the `validateUser` middleware:
+**Problem: `npm install fails`**
+```bash
+# Clear npm cache
+npm cache clean --force
 
-```javascript
-const { validateUser } = require("./middleware/auth");
+# Delete node_modules and package-lock.json
+rm -rf node_modules package-lock.json  # On Windows: rmdir /s node_modules
 
-app.get('/protected', validateUser, function(req, res) {
-    // req.uid and req.user are available here
-    res.json({ message: 'Protected data', userId: req.uid });
-});
+# Reinstall
+npm install
 ```
 
-## 🔐 Authentication
+**Problem: `Environment variables not working`**
+- Restart the server after changing `.env` files
+- For frontend, ensure variables start with `REACT_APP_` prefix
+- Check that `.env` files are in the correct directories
 
-The application uses Firebase Authentication:
+**Problem: `Both servers won't start`**
+- Ensure you have two separate terminal windows
+- Check that ports 3000 and 4000 are not already in use
+- Verify Node.js and npm are properly installed:
+  ```bash
+  node --version
+  npm --version
+  ```
 
-- **Frontend**: Uses Firebase Client SDK for user authentication
-- **Backend**: Uses Firebase Admin SDK to verify ID tokens
+**Problem: `Module not found errors`**
+- Delete `node_modules` and `package-lock.json`
+- Run `npm install` again
+- Ensure you're in the correct directory (backend or frontend)
 
-### Making Authenticated Requests
+## 📝 Additional Notes
 
-Use the `adminRequest` function from `frontend/src/index.js`:
+### Development Tips
 
-```javascript
-import { adminRequest } from './index';
+1. **Hot Reload**: Both frontend and backend support hot reload during development
+2. **Environment Variables**: Always restart servers after changing `.env` files
+3. **Firebase**: Keep your service account key secure and never commit it
+4. **Ports**: Default ports are 3000 (backend) and 4000 (frontend)
+5. **Build**: Run `npm run build` in frontend before deploying to production
 
-adminRequest('api-endpoint', 'GET', null, (response) => {
-    if (response) {
-        console.log('Success:', response);
-    } else {
-        console.log('Error or unauthorized');
-    }
-});
-```
+### Security Best Practices
 
-## 📁 Project Structure Details
+- ⚠️ Never commit `.env` files to version control
+- ⚠️ Never commit Firebase service account keys
+- ⚠️ Keep sensitive credentials secure
+- ✅ Use environment variables for configuration
+- ✅ Enable Firebase security rules in production
 
-### Backend
+### Getting Help
 
-- `index.js` - Main Express server file (loads environment variables with dotenv)
-- `middleware/auth.js` - Authentication middleware for protected routes
-- `.env` - Environment variables (port, node environment)
-- `package.json` - Backend dependencies and scripts
+If you encounter issues not covered here:
 
-### Frontend
-
-- `src/index.js` - React entry point with Firebase initialization (uses environment variables)
-- `src/App.js` - Main React component
-- `.env` - Environment variables (API URL)
-- `public/` - Static assets (HTML, images, etc.)
-
-## 🛠️ Available Scripts
-
-### Backend
-
-- `npm start` - Start the server
-- `npm run dev` - Start server with auto-restart (requires nodemon)
-
-### Frontend
-
-- `npm start` - Start development server
-- `npm run build` - Build for production
-- `npm test` - Run tests
-
-## 🔒 Security Notes
-
-- ⚠️ Never commit `.env` files or service account keys to version control
-- Keep your Firebase service account key secure
-- Use environment variables for sensitive configuration
-- The `.gitignore` file is configured to exclude sensitive files
-
-## 📝 Environment Variables
-
-The project uses `.env` files for configuration. These files are already created and configured with default values.
-
-### Backend (`backend/.env`)
-
-```env
-# Server Configuration
-PORT=3000
-NODE_ENV=development
-
-# CORS Configuration (optional)
-# CORS_ORIGIN=http://localhost:3001
-```
-
-**How it works**: The backend uses the `dotenv` package to automatically load environment variables from `.env` when the server starts. The port is read from `process.env.PORT` with a fallback to 3000.
-
-### Frontend (`frontend/.env`)
-
-```env
-# Frontend Server Port
-PORT=4000
-
-# API Configuration
-REACT_APP_API_URL=http://localhost:3000
-```
-
-**How it works**: 
-- React automatically loads environment variables prefixed with `REACT_APP_` from the `.env` file. The API URL is accessed via `process.env.REACT_APP_API_URL` in the code.
-- The `PORT` variable sets the port for the React development server (default: 3000, configured: 4000).
-
-### Changing Configuration
-
-To change the server port or API URL, simply edit the respective `.env` file:
-- **Backend port**: Edit `backend/.env` → Change `PORT=3000` to your desired port
-- **API URL**: Edit `frontend/.env` → Change `REACT_APP_API_URL` to your backend URL
-
-**Important**: After changing `.env` files, restart the respective server for changes to take effect.
-
-## 🤝 Contributing
-
-1. Create a feature branch
-2. Make your changes
-3. Test thoroughly
-4. Submit a pull request
+1. Check the browser console for errors
+2. Check the terminal output for error messages
+3. Verify all dependencies are installed correctly
+4. Ensure all configuration files are set up properly
+5. Check that Firebase services are enabled in Firebase Console
 
 ## 📄 License
 
 ISC
 
+## 👥 Contributors
+
+- Your Name Here
+
 ## 📞 Support
 
-For issues and questions, please open an issue in the repository.
+For issues and questions, please open an issue in the repository or contact the development team.
 
+---
+
+**Last Updated:** January 2025
+**Project Version:** 1.0.0
